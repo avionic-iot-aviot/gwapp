@@ -22,6 +22,7 @@ export default class PingService {
                     tbl.ipaddrs[entry.ip] = entry.mac;
                     this.addRuleEbTables(entry.ip, entry.mac)
                 }
+
                 // if (!tbl.ifnames[entry.ifname]) tbl.ifnames[entry.ifname] = {};
                 // tbl.ifnames[entry.ifname][entry.mac] = entry.ip;
             });

@@ -10,7 +10,7 @@ router.post('/', async (req, res) => {
     const params = req.body.params;
     try {
         console.log("PARAMS", params);
-        await pingService.pingIP();
+        await pingService.pingIP(params.ips);
         res.status(HttpStatus.OK).send();
     } catch (error) {
         res.status(HttpStatus.OK).send(error);
