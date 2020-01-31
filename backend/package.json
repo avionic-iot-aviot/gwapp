@@ -1,0 +1,33 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "be:build": "tsc --version && tsc -p .",
+    "be:start:dev": "node dist/main.js",
+    "ping_and_arp": "node dist/shared/pingArp.js",
+    "exec_ebtables": "node dist/shared/execEbtables.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/config": "^0.0.36",
+    "@types/ping": "^0.2.0",
+    "arp-a": "^0.5.2",
+    "arping": "^0.2.0",
+    "child_process": "^1.0.2",
+    "config": "^3.2.5",
+    "cross-env": "^6.0.3",
+    "express": "^4.17.1",
+    "http-status-codes": "^1.4.0",
+    "lodash": "^4.17.15",
+    "ping": "^0.2.2",
+    "util": "^0.12.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.2",
+    "@types/http-status-codes": "^1.2.0",
+    "@types/lodash": "^4.14.149"
+  }
+}
