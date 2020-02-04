@@ -18,7 +18,7 @@ export default class PingService {
             await arp1.table(function (err: any, entry: any) {
                 if (!!err) return console.log('arp: ' + err.message);
                 if (!entry) return;
-                if (entry.ifname == cfg.arp.interface) {
+                if (entry.iface == cfg.arp.interface) {
                     tbl.ipaddrs[entry.ip] = entry.mac;
                     this.addRuleEbTables(entry.ip, entry.mac)
                 }
@@ -26,6 +26,7 @@ export default class PingService {
                 // if (!tbl.ifnames[entry.ifname]) tbl.ifnames[entry.ifname] = {};
                 // tbl.ifnames[entry.ifname][entry.mac] = entry.ip;
             });
+            console.log("tbl", tbl);
         } catch (error) {
             console.log("ERRR", error);
         }

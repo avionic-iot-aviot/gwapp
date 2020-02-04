@@ -92,14 +92,6 @@ arp-a@^0.5.2:
   resolved "https://registry.yarnpkg.com/arp-a/-/arp-a-0.5.2.tgz#9a8722eaae903f59cfc28193b0041cf449bdd15a"
   integrity sha1-moci6q6QP1nPwoGTsAQc9Em90Vo=
 
-arping@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/arping/-/arping-0.2.0.tgz#45299278622963e7174db818d406e65c9e7fc3fa"
-  integrity sha512-UgtRRHskZ9TJ2D8cRfILFoVy3INy4vmM03L7dr3+6dZeZw+tvsTg0LUPGJejN45kNWpGbo8Ngeo8ps/C0uSBhw==
-  dependencies:
-    pcap "^2.1.0"
-    raw-socket "^1.7.0"
-
 array-flatten@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/array-flatten/-/array-flatten-1.1.1.tgz#9a5f699051b1e7073328f2a008968b64ea2955d2"
@@ -469,11 +461,6 @@ ms@2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.1.tgz#30a5864eb3ebb0a66f2ebe6d727af06a09d86e0a"
   integrity sha512-tgp+dl5cGk28utYktBsrFqA7HKgrhgPsg6Z/EfhWI4gl1Hwq8B/GmY/0oXZ6nF8hDVesS/FpnYaD/kOWhYQvyg==
 
-nan@2.14.*, nan@^2.0.9:
-  version "2.14.0"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.0.tgz#7818f722027b2459a86f0295d434d1fc2336c52c"
-  integrity sha512-INOFj37C7k3AfaNTtX8RhsTw7qRy7eLET14cROi9+5HAVbbHuIWUHEauBv5qT4Av2tWasiTY1Jw6puUNqRJXQg==
-
 negotiator@0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.2.tgz#feacf7ccf525a77ae9634436a64883ffeca346fb"
@@ -531,14 +518,6 @@ path-to-regexp@0.1.7:
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
   integrity sha1-32BBeABfUi8V60SQ5yR6G/qmf4w=
 
-pcap@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/pcap/-/pcap-2.1.0.tgz#4504072591dcf06289e3b93bd5e55ffb9a22f25b"
-  integrity sha512-immYRefC8nWvfH0HbmB/O+8xcd5TsN+VzOusFY0BNpQtZXlKwZo/2AiZHAukcC41vcgVI7dUrBxQCsQc71NaOw==
-  dependencies:
-    nan "^2.0.9"
-    socketwatcher "git+https://github.com/bytzdev/node-socketwatcher.git"
-
 ping@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/ping/-/ping-0.2.2.tgz#180fb7508c1dc74793849bce35c8073f9965bce2"
@@ -579,13 +558,6 @@ raw-body@2.4.0:
     http-errors "1.7.2"
     iconv-lite "0.4.24"
     unpipe "1.0.0"
-
-raw-socket@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/raw-socket/-/raw-socket-1.7.0.tgz#cd0bcc3da52450dcb6b9efe7a6d0890bf1aaf9db"
-  integrity sha512-mXqWihgwaFNmV5le0dWk5o+03M3A2zBIkC9BNaE6R0CJN9eYot++j2FIqgNSDq6/Vmu32PPI155SiiWNV2yyFQ==
-  dependencies:
-    nan "2.14.*"
 
 safe-buffer@5.1.2:
   version "5.1.2"
@@ -647,12 +619,6 @@ shebang-regex@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
-
-"socketwatcher@git+https://github.com/bytzdev/node-socketwatcher.git":
-  version "0.3.0"
-  resolved "git+https://github.com/bytzdev/node-socketwatcher.git#d252d3f8c45f565a0a48ebd155d4f9e4666798d9"
-  dependencies:
-    nan "^2.0.9"
 
 "statuses@>= 1.5.0 < 2", statuses@~1.5.0:
   version "1.5.0"
