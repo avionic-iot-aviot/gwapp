@@ -4,6 +4,8 @@ module.exports = {
         envFilename: `.env.production`
     },
     arp: {
-        interface: 'dhcpbr'
+        interface: 'dhcpbr',
+        entry_interface: 'iface'
+
     }     
 };

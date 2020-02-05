@@ -7,10 +7,14 @@ import PingService from '../../services/pingService';
 const pingService = new PingService();
 
 router.post('/', async (req, res) => {
-    const params = req.body.params;
+    const body = req.body;
     try {
+
+        const params = body && body.params ? body.params : null;
         console.log("PARAMS", params);
-        await pingService.pingIP(params.ips);
+        if (params && params.ips) {
+            await pingService.execute(params.ips);
+        }
         res.status(HttpStatus.OK).send();
     } catch (error) {
         res.status(HttpStatus.OK).send(error);

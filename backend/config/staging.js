@@ -4,6 +4,7 @@ module.exports = {
         envFilename: `.env.staging`
     },
     arp: {
-        interface: 'dhcpbr'
+        interface: 'dhcpbr',
+        entry_interface: 'iface'
     }     
 };
