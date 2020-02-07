@@ -10,6 +10,7 @@ export default class PingService {
 
     async execute(hosts: string[]) {
         try {
+            await this.flushEbTables();
             await this.pingIP(hosts);
             const arpData: any = await this.getElementsFromArpTable();
             if (arpData) {
@@ -17,7 +18,9 @@ export default class PingService {
                     await Object.keys(arpData.mac_addresses).forEach(async (key: string) => {
                         const ipaddrs: string[] = arpData.mac_addresses[key];
                         await ipaddrs.forEach(async (ip: string) => {
-                            await this.addRuleEbTables(ip, key);
+                            if (hosts.includes(ip)) {
+                                await this.addRuleEbTables(ip, key);
+                            }
                         });
                     });
                 }
@@ -87,6 +90,16 @@ export default class PingService {
     async addRuleEbTables(ip: string, mac_address: string) {
         try {
             const { stdout, stderr } = await exec(`sudo ebtables -t nat -A PREROUTING -p ARP -i edge0 --arp-ip-dst ${ip} -j dnat --to-dst ${mac_address} --dnat-target ACCEPT`);
+            console.log('stdout:', stdout);
+            console.log('stderr:', stderr);
+        } catch (error) {
+            console.log('error:', error);
+        }
+    }
+
+    async flushEbTables() {
+        try {
+            const { stdout, stderr } = await exec(`sudo ebtables -t nat -F`);
             console.log('stdout:', stdout);
             console.log('stderr:', stderr);
         } catch (error) {
