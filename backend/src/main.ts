@@ -13,9 +13,4 @@ app.listen(3800, () => {
   console.log('Application listening on port 3800!');
 });
 
-
-// import test from './services/pingService';
-// const t = new test();
-// t.pingIP();
-// t.test();
 module.exports = app;

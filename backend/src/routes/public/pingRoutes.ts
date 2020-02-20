@@ -8,6 +8,7 @@ const pingService = new PingService();
 
 router.post('/', async (req, res) => {
     const body = req.body;
+    //API che sta in ascolto per ricevere i dati dal DHCP server ed elaborali
     try {
 
         const params = body && body.params ? body.params : null;

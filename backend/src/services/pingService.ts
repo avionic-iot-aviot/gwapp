@@ -7,7 +7,7 @@ const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 export default class PingService {
 
-
+    // dato un array di hosts, verranno eseguiti dei passi per aggiornare l'ebtables
     async execute(hosts: string[]) {
         try {
             await this.flushEbTables();
@@ -30,7 +30,8 @@ export default class PingService {
         }
     }
 
-
+    // viene fatto un ping a tutti gli hosts dell'array
+    // in questo modo nella tabella ARP verranno memorizzati i MAC address relativi agli IPs
     async pingIP(hosts: string[]) {
 
         try {
@@ -38,27 +39,15 @@ export default class PingService {
                 const res = await ping.promise.probe(host);
                 console.log("RESS => is Alive????", res)
             });
-
-            //     await arp1.table(function (err: any, entry: any) {
-            //         if (!!err) return console.log('arp: ' + err.message);
-            //         if (!entry) return;
-            //         if (entry.iface == cfg.arp.interface) {
-            //             tbl.ipaddrs[entry.ip] = entry.mac;
-            //             if (entry.mac != '00:00:00:00:00:00') {
-            //                 this.addRuleEbTables(entry.ip, entry.mac);
-            //             }
-            //         }
-
-            //         // if (!tbl.ifnames[entry.ifname]) tbl.ifnames[entry.ifname] = {};
-            //         // tbl.ifnames[entry.ifname][entry.mac] = entry.ip;
-            //     });
-            //     console.log("tbl", tbl);
         } catch (error) {
             console.log("ERRR", error);
         }
 
     }
 
+    // il metodo scansiona la tabella degli ARP
+    // seleziona le righe relative all'interfaccia indicata nel file di configurazione
+    // ritorna una mappa contenente MAC addresses e IPs
     async getElementsFromArpTable() {
         try {
             const promise = new Promise((resolve, reject) => {
@@ -86,7 +75,7 @@ export default class PingService {
             console.log("ERRR", error);
         }
     }
-
+    //dato un IP e un MAC Address, verra inserita la regola nell'ebtables
     async addRuleEbTables(ip: string, mac_address: string) {
         try {
             const { stdout, stderr } = await exec(`sudo ebtables -t nat -A PREROUTING -p ARP -i edge0 --arp-ip-dst ${ip} -j dnat --to-dst ${mac_address} --dnat-target ACCEPT`);
@@ -96,7 +85,7 @@ export default class PingService {
             console.log('error:', error);
         }
     }
-
+    // L'ebtables viene svuotata al fine di evitare che ci siano regole in più
     async flushEbTables() {
         try {
             const { stdout, stderr } = await exec(`sudo ebtables -t nat -F`);
