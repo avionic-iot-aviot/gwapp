@@ -108,15 +108,11 @@ export default class PingService {
     async addRuleEbTables(ip: string, mac_address: string) {
         try {
             const { stdout, stderr } = await exec(`sudo ebtables -t nat -A PREROUTING -p ARP -i edge0 --arp-ip-dst ${ip} -j dnat --to-dst ${mac_address} --dnat-target ACCEPT`);
-            // sudo ebtables -t nat -A PREROUTING -p IPv4 -i edge0 --ip-dst 10.10.0.121 -j dnat --to-dst dc:a6:32:78:c8:d1 --dnat-target ACCEPT
             console.log('stdout:', stdout);
             console.log('stderr:', stderr);
             const { stdout1, stderr1 } = await exec(`sudo ebtables - t nat - A PREROUTING - p IPv4 - i edge0--ip - dst ${ip} - j dnat--to - dst ${mac_address} --dnat - target ACCEPT`);
             console.log('stdout1:', stdout1);
             console.log('stderr1:', stderr1);
-            // sudo ebtables - t nat - A POSTROUTING - o edge0 - j snat--to - src 1a: 71: e7: 19: 43: e6--snat - arp--snat - target ACCEPT
-            // sudo ebtables - t nat - A PREROUTING - p ARP - i edge0--arp - ip - dst 10.10.0.121 - j dnat--to - dst dc: a6: 32: 78: c8: d1--dnat - target ACCEPT
-            // sudo ebtables - t nat - A PREROUTING - p IPv4 - i edge0--ip - dst 10.10.0.121 - j dnat--to - dst dc: a6: 32: 78: c8: d1--dnat - target ACCEPT
         } catch (error) {
             console.log('error:', error);
         }
