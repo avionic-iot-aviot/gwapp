@@ -84,6 +84,7 @@ export default class PingService {
         let mac_address = null;
         try {
             // let tmpDirectory = path.join(__dirname, '../../aa.txt');
+
             mac_address = await fs.readFileSync(cfg.gateway.path_mac, 'utf8');
             return mac_address;
         } catch (error) {
@@ -96,7 +97,8 @@ export default class PingService {
         try {
             const mac_gw = await this.getMacAddress();
             if (mac_gw) {
-                const { stdout, stderr } = await exec(`sudo ebtables -t nat -A POSTROUTING -o edge0 -j snat --to-src ${mac_gw} --snat-arp --snat-target ACCEPT`);
+                const postrouting_rule = `sudo ebtables -t nat -A POSTROUTING -o edge0 -j snat --to-src ${mac_gw.replace(/\r?\n|\r/, "")} --snat-arp --snat-target ACCEPT`;
+                const { stdout, stderr } = await exec(postrouting_rule);
                 console.log('stdout:', stdout);
                 console.log('stderr:', stderr);
             }
@@ -110,7 +112,7 @@ export default class PingService {
             const { stdout, stderr } = await exec(`sudo ebtables -t nat -A PREROUTING -p ARP -i edge0 --arp-ip-dst ${ip} -j dnat --to-dst ${mac_address} --dnat-target ACCEPT`);
             console.log('stdout:', stdout);
             console.log('stderr:', stderr);
-            const { stdout1, stderr1 } = await exec(`sudo ebtables - t nat - A PREROUTING - p IPv4 - i edge0--ip - dst ${ip} - j dnat--to - dst ${mac_address} --dnat - target ACCEPT`);
+            const { stdout1, stderr1 } = await exec(`sudo ebtables -t nat - A PREROUTING - p IPv4 -i edge0 --ip-dst ${ip} - j dnat--to-dst ${mac_address} --dnat-target ACCEPT`);
             console.log('stdout1:', stdout1);
             console.log('stderr1:', stderr1);
         } catch (error) {
