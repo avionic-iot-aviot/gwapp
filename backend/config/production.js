@@ -1,11 +1,13 @@
 // config.js
 module.exports = {
-    env: {
-        envFilename: `.env.production`
-    },
-    arp: {
-        interface: 'dhcpbr',
-        entry_interface: 'iface'
-
-    }     
+  env: {
+    envFilename: `.env.production`
+  },
+  arp: {
+    interface: "dhcpbr",
+    entry_interface: "iface"
+  },
+  gateway: {
+    interface: "dhcpbr"
+  }
 };

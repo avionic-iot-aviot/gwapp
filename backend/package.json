@@ -19,6 +19,7 @@
     "config": "^3.2.5",
     "cross-env": "^6.0.3",
     "express": "^4.17.1",
+    "fs": "^0.0.1-security",
     "http-status-codes": "^1.4.0",
     "lodash": "^4.17.15",
     "ping": "^0.2.2",

@@ -1,16 +1,20 @@
-const ping = require('ping');
-// const hosts = ['192.168.55.120', '192.168.55.140'];
+
 const arp1 = require('arp-a');
-let tbl: any = { ipaddrs: {}, ifnames: {} };
 const cfg = require('config');
+const fs = require('fs');
+const path = require('path');
+const ping = require('ping');
+// let tbl: any = { ipaddrs: {}, ifnames: {} };
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
+
 export default class PingService {
 
     // dato un array di hosts, verranno eseguiti dei passi per aggiornare l'ebtables
     async execute(hosts: string[]) {
         try {
             await this.flushEbTables();
+            await this.addExitRuleEbTables();
             await this.pingIP(hosts);
             const arpData: any = await this.getElementsFromArpTable();
             if (arpData) {
@@ -75,12 +79,44 @@ export default class PingService {
             console.log("ERRR", error);
         }
     }
+
+    async getMacAddress(): Promise<any> {
+        let mac_address = null;
+        try {
+            // let tmpDirectory = path.join(__dirname, '../../aa.txt');
+            mac_address = await fs.readFileSync(cfg.gateway.path_mac, 'utf8');
+            return mac_address;
+        } catch (error) {
+            console.log("error getMacAddress", error);
+            return mac_address;
+        }
+    }
+
+    async addExitRuleEbTables() {
+        try {
+            const mac_gw = await this.getMacAddress();
+            if (mac_gw) {
+                const { stdout, stderr } = await exec(`sudo ebtables -t nat -A POSTROUTING -o edge0 -j snat --to-src ${mac_gw} --snat-arp --snat-target ACCEPT`);
+                console.log('stdout:', stdout);
+                console.log('stderr:', stderr);
+            }
+        } catch (error) {
+            console.log('error:', error);
+        }
+    }
     //dato un IP e un MAC Address, verra inserita la regola nell'ebtables
     async addRuleEbTables(ip: string, mac_address: string) {
         try {
             const { stdout, stderr } = await exec(`sudo ebtables -t nat -A PREROUTING -p ARP -i edge0 --arp-ip-dst ${ip} -j dnat --to-dst ${mac_address} --dnat-target ACCEPT`);
+            // sudo ebtables -t nat -A PREROUTING -p IPv4 -i edge0 --ip-dst 10.10.0.121 -j dnat --to-dst dc:a6:32:78:c8:d1 --dnat-target ACCEPT
             console.log('stdout:', stdout);
             console.log('stderr:', stderr);
+            const { stdout1, stderr1 } = await exec(`sudo ebtables - t nat - A PREROUTING - p IPv4 - i edge0--ip - dst ${ip} - j dnat--to - dst ${mac_address} --dnat - target ACCEPT`);
+            console.log('stdout1:', stdout1);
+            console.log('stderr1:', stderr1);
+            // sudo ebtables - t nat - A POSTROUTING - o edge0 - j snat--to - src 1a: 71: e7: 19: 43: e6--snat - arp--snat - target ACCEPT
+            // sudo ebtables - t nat - A PREROUTING - p ARP - i edge0--arp - ip - dst 10.10.0.121 - j dnat--to - dst dc: a6: 32: 78: c8: d1--dnat - target ACCEPT
+            // sudo ebtables - t nat - A PREROUTING - p IPv4 - i edge0--ip - dst 10.10.0.121 - j dnat--to - dst dc: a6: 32: 78: c8: d1--dnat - target ACCEPT
         } catch (error) {
             console.log('error:', error);
         }
