@@ -37,21 +37,22 @@ export default class PingService {
     // viene fatto un ping a tutti gli hosts dell'array
     // in questo modo nella tabella ARP verranno memorizzati i MAC address relativi agli IPs
     async pingIP(hosts: string[]) {
-
         try {
-            const promise = new Promise(async (resolve, reject) => {
-                await hosts.forEach(async (host: string) => {
-                    const res = await ping.promise.probe(host);
-                    console.log("RESS => is Alive????", res)
-                });
+            let promises: any[] = [];
+            await hosts.forEach(async (host: string) => {
+                // const promise = new Promise(async (resolve, reject) => {
+                let promise = ping.promise.probe(host);
+                console.log("Promise...");
+                promises.push(promise);
+                // resolve(res);
+                // });
             });
-            return promise;
+            return await Promise.all(promises);
         } catch (error) {
             console.log("ERRR", error);
         }
 
     }
-
     // il metodo scansiona la tabella degli ARP
     // seleziona le righe relative all'interfaccia indicata nel file di configurazione
     // ritorna una mappa contenente MAC addresses e IPs
@@ -76,7 +77,6 @@ export default class PingService {
 
                 });
             });
-
             return promise;
         } catch (error) {
             console.log("ERRR", error);
