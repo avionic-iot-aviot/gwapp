@@ -18,7 +18,7 @@ export default class PingService {
             await this.pingIP(hosts);
             const arpData: any = await this.getElementsFromArpTable();
             if (arpData) {
-                if (arpData && arpData.mac_addresses && Object.keys(arpData.mac_addresses).length > 0) {
+                if (arpData.mac_addresses && Object.keys(arpData.mac_addresses).length > 0) {
                     await Object.keys(arpData.mac_addresses).forEach(async (key: string) => {
                         const ipaddrs: string[] = arpData.mac_addresses[key];
                         await ipaddrs.forEach(async (ip: string) => {
@@ -39,10 +39,13 @@ export default class PingService {
     async pingIP(hosts: string[]) {
 
         try {
-            await hosts.forEach(async (host: string) => {
-                const res = await ping.promise.probe(host);
-                console.log("RESS => is Alive????", res)
+            const promise = new Promise(async (resolve, reject) => {
+                await hosts.forEach(async (host: string) => {
+                    const res = await ping.promise.probe(host);
+                    console.log("RESS => is Alive????", res)
+                });
             });
+            return promise;
         } catch (error) {
             console.log("ERRR", error);
         }
