@@ -9,6 +9,8 @@ module.exports = {
   },
   gateway: {
     interface: "dhcpbr",
-    path_mac: "/sys/class/net/dhcpbr/address"
+    path_mac: "/sys/class/net/dhcpbr/address",
+    path_resolv: "/etc/resolv.conf",
+    interface_for_resolv: "edge0"
   }
 };
