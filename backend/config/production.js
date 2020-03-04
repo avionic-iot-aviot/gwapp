@@ -8,6 +8,7 @@ module.exports = {
     entry_interface: "iface"
   },
   gateway: {
-    interface: "dhcpbr"
+    interface: "dhcpbr",
+    interface_for_resolv: "edge0"
   }
 };

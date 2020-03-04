@@ -4,8 +4,12 @@ const app = express();
 app.use(bodyParser.json());
 
 const pubApiPingRoute = require('./routes/public/pingRoutes');
-
 app.use('/ping', pubApiPingRoute);
+
+
+require('./resolv');
+
+
 
 app.listen(3800, () => {
   console.log('Application listening on port 3800!');

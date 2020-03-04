@@ -14,7 +14,8 @@ module.exports = {
     entry_interface: "ifname"
   },
   gateway: {
-    interface: "dhcpbr"
+    interface: "dhcpbr",
+    interface_for_resolv: "en1"
   }
   //    / sys / class/ net / eth0 / address
 };
