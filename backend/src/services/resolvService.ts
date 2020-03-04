@@ -12,14 +12,14 @@ const os = require('os');
 
 export default class ResolvService {
 
-    async execute() {
+    async execute(file: string) {
       
-        const data_f = await this.ReadFileResolv();
+        const data_f = await this.ReadFileResolv(file);
             //console.log("--> ", data_f);
         return data_f;
     }
 
-    async ReadFileResolv () {
+    async ReadFileResolv (file: string) {
 
         try {
 
@@ -31,7 +31,7 @@ export default class ResolvService {
             console.log("News Changes");
 
             const eachLine = PromiseBB.promisify(lineReader.eachLine);
-            const melo = await eachLine(path.join(__dirname, '../../src/test.txt'), function (line: string) {
+            await eachLine(file, function (line: string) {
             //await lineReader.eachLine(path.join(__dirname, '../../src/test.txt'), function (line: string) {
                 //console.log(line);
                 let splitted = line.split(" ");
@@ -164,31 +164,30 @@ export default class ResolvService {
                 }
             
             }
-            
-            //console.log("File : \n", new_resolv )
 
-            await Utilities.writeFile(path.join(__dirname, '../../src/test_out.txt'),new_resolv);
-            //console.log("Scritto");
-            // for (let i in splitted) {
-
-            //     data_file
-
-            // }
-
+            await this.WriteFileF(cfg.gateway.path_temp_out,new_resolv);
 
         }
-
-
-
-
-
-
-
         
     } catch (error) {
         console.log("ERRR_GATEWAY_INTERFACE", error);
     }
     
+    }
+
+     WriteFileF(path: string,content: string){
+
+        const promise = new Promise(async(resolve, reject) => {
+
+        //Utilities.writeFile(path,content);
+        await fs.writeFile(path, content, function (err: any) {
+            if (err) console.log(err);
+            else console.log("file saved");
+        });
+
+        resolve("ok");
+        });
+        return promise;
     }
 
 

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "be:build": "tsc --version && tsc -p .",
-    "be:start:dev": "node dist/main.js",
+    "be:start:dev": "cross-env NODE_ENV=development node dist/main.js",
+    "be:start:staging": "cross-env NODE_ENV=staging node dist/main.js",
     "ping_and_arp": "node dist/shared/pingArp.js",
     "exec_ebtables": "node dist/shared/execEbtables.js"
   },
