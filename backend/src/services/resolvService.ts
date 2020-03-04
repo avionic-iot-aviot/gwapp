@@ -1,5 +1,5 @@
 import { Riga } from "../interfaces/interfaces";
-
+import { Utilities } from '../shared/utilities';
 const fs = require('fs');
 const path = require('path');
 const cfg = require('config');
@@ -15,7 +15,7 @@ export default class ResolvService {
     async execute() {
       
         const data_f = await this.ReadFileResolv();
-            console.log("--> ", data_f);
+            //console.log("--> ", data_f);
         return data_f;
     }
 
@@ -84,7 +84,7 @@ export default class ResolvService {
     async getmyip(){
 
         const data_ip = await this.generatemyip();
-            console.log("--> ", data_ip);
+            //console.log("--> ", data_ip);
             return data_ip;
 
     }
@@ -93,7 +93,7 @@ export default class ResolvService {
 
         let ip_list: [string,string][] = new Array();
         let ip_list_1: any = {};
-        let ifaces = os.networkinterface_for_resolvs();
+        let ifaces = os.networkInterfaces();
 
         Object.keys(ifaces).forEach(function (ifname) {
             var alias = 0;
@@ -105,11 +105,11 @@ export default class ResolvService {
               }
           
               if (alias >= 1) {
-                // this single interface_for_resolv has multiple ipv4 addresses
+                // this single interface has multiple ipv4 addresses
                 //ip_list.push(ifname + ':' + alias, iface.address);
                 //console.log(ifname + ':' + alias, iface.address);
               } else {
-                // this interface_for_resolv has only one ipv4 adress
+                // this interface has only one ipv4 adress
                 ip_list.push([ifname, iface.address]);
                 ip_list_1[ifname] = iface.address;
                 //console.log(ifname, iface.address);
@@ -141,7 +141,7 @@ export default class ResolvService {
 
                         new_1rf_dns = (data_file[i].text + " " + data_file[i].ip);
                         //console.log("eccolo --> ",data_file[i].text, " ", data_file[i].ip);
-                        console.log(new_1rf_dns);
+                        //console.log(new_1rf_dns);
                     }
                 }
 
@@ -155,7 +155,7 @@ export default class ResolvService {
 
                     if ( data_file[i].type === 1 ){
                         new_resolv = new_resolv +"\n"+data_file[i].text+" "+data_file[i].ip;
-                        console.log(data_file[i].text+" "+data_file[i].ip)
+                        //console.log(data_file[i].text+" "+data_file[i].ip)
                     }
                     if ( data_file[i].type === 0 ){
                         new_resolv = new_resolv +"\n"+data_file[i].text;
@@ -165,8 +165,10 @@ export default class ResolvService {
             
             }
             
-            console.log("File : \n", new_resolv )
+            //console.log("File : \n", new_resolv )
 
+            await Utilities.writeFile(path.join(__dirname, '../../src/test_out.txt'),new_resolv);
+            //console.log("Scritto");
             // for (let i in splitted) {
 
             //     data_file
@@ -184,7 +186,7 @@ export default class ResolvService {
 
         
     } catch (error) {
-        console.log("ERRR_GATEWAY_interface_for_resolv", error);
+        console.log("ERRR_GATEWAY_INTERFACE", error);
     }
     
     }

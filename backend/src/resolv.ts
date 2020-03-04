@@ -14,12 +14,13 @@ if (cfg.gateway && cfg.gateway.path_resolv) {
 fs.watchFile(tmpDirectory, async(curr : any, prev: any) => {
     //console.log("Sto ascoltando il file");
     console.log( `[${new Date().toLocaleString()}] Watching for file changes on: ${tmpDirectory}`  );
-    console.log("ciao1");
+    console.log("Inizio");
     let datafile = await resolvService.execute();
-    console.log("ciao2");
+    console.log("File_letto");
     let ip = await resolvService.getmyip();
-    console.log("ciao3");
+    console.log("Trovo_il_mio_ip");
     await resolvService.changefile(ip,datafile);
+    console.log("Nuovo_file_creato");
 
 
 })

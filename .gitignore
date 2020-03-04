@@ -2,3 +2,4 @@ backend/node_modules
 backend/dist
 backend/yarn-error.log
 backend/src/test.txt
+backend/src/test_out.txt
