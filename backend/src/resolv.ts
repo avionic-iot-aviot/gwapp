@@ -7,9 +7,11 @@ const resolvService = new ResolvService();
 const delay = require('delay');
  
 (async() => {
-    const result = await delay(6000);
+    const result = await delay(60000);
 
-    console.log("sono passati 6000 millisecondi");
+    console.log("sono passati 60000 millisecondi");
+
+});
 
 
 let tmpDirectory = path.join(__dirname, '../src/test.txt');
@@ -34,4 +36,3 @@ fs.watchFile(tmpDirectory, async(curr : any, prev: any) => {
 
 
     
-})();
