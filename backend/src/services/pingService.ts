@@ -13,20 +13,22 @@ export default class PingService {
     // dato un array di hosts, verranno eseguiti dei passi per aggiornare l'ebtables
     async execute(hosts: string[]) {
         try {
-            await this.flushEbTables();
-            await this.addExitRuleEbTables();
-            await this.pingIP(hosts);
-            const arpData: any = await this.getElementsFromArpTable();
-            if (arpData) {
-                if (arpData.mac_addresses && Object.keys(arpData.mac_addresses).length > 0) {
-                    await Object.keys(arpData.mac_addresses).forEach(async (key: string) => {
-                        const ipaddrs: string[] = arpData.mac_addresses[key];
-                        await ipaddrs.forEach(async (ip: string) => {
-                            if (hosts.includes(ip)) {
-                                await this.addRuleEbTables(ip, key);
-                            }
+            if (hosts.length > 0) {
+                await this.flushEbTables();
+                await this.addExitRuleEbTables();
+                await this.pingIP(hosts);
+                const arpData: any = await this.getElementsFromArpTable();
+                if (arpData) {
+                    if (arpData.mac_addresses && Object.keys(arpData.mac_addresses).length > 0) {
+                        await Object.keys(arpData.mac_addresses).forEach(async (key: string) => {
+                            const ipaddrs: string[] = arpData.mac_addresses[key];
+                            await ipaddrs.forEach(async (ip: string) => {
+                                if (hosts.includes(ip)) {
+                                    await this.addRuleEbTables(ip, key);
+                                }
+                            });
                         });
-                    });
+                    }
                 }
             }
         } catch (error) {
