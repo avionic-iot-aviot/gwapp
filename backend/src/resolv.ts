@@ -4,6 +4,13 @@ const path = require('path');
 const cfg = require('config');
 import ResolvService from './services/resolvService';
 const resolvService = new ResolvService();
+const delay = require('delay');
+ 
+(async() => {
+    const result = await delay(6000);
+
+    console.log("sono passati 6000 millisecondi");
+
 
 let tmpDirectory = path.join(__dirname, '../src/test.txt');
 //console.log("dirr", tmpDirectory);
@@ -24,3 +31,7 @@ fs.watchFile(tmpDirectory, async(curr : any, prev: any) => {
 
 
 })
+
+
+    
+})();
