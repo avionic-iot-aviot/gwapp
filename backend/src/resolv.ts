@@ -35,5 +35,5 @@ fs.watchFile(tmpDirectory, async(curr : any, prev: any) => {
 })
 
 
-});
+})();
 
