@@ -7,9 +7,9 @@ const resolvService = new ResolvService();
 const delay = require('delay');
  
 (async() => {
-    const result = await delay(30000);
+    const result = await delay(3000);
 
-    console.log("sono passati 30000 millisecondi");
+    console.log("sono passati 3000 millisecondi");
 
 
 
