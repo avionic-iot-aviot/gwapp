@@ -25,7 +25,7 @@ const delay = require('delay');
     await resolvService.changefile(ip, datafile);
     //console.log("Nuovo_file_creato");
     console.log("RESOLV: File Resolv modificato per la prima volta");
-
+    const result2 = await delay(2000);
     console.log("RESOLV: Parte il watchfile");
     fs.watchFile(tmpDirectory, async (curr: any, prev: any) => {
         //console.log("Sto ascoltando il file");
@@ -37,7 +37,9 @@ const delay = require('delay');
         console.log("RESOLV: Trovo_il_mio_ip");
         await resolvService.changefile(ip, datafile);
         console.log("RESOLV: Nuovo_file_creato");
-        const result1 = await delay(2000);
+        resolvService.replace_file();
+        console.log("RESOLV: File_Sostituito");
+        const result2 = await delay(2000);
         console.log("RESOLV: Dormo 2 secondi");
 
     })

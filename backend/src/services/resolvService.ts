@@ -6,8 +6,9 @@ const cfg = require('config');
 //var resolvmon = require('resolvmon');
 const lineReader = require('line-reader');
 const PromiseBB = require('bluebird');
-
 const os = require('os');
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
 
 
 export default class ResolvService {
@@ -190,6 +191,19 @@ export default class ResolvService {
         return promise;
     }
 
+
+    async replace_file(){
+
+        try {
+            const { stdout, stderr } = await exec(`sudo cat ${cfg.gateway.path_temp_out} > ${cfg.gateway.path_resolv}`);
+            console.log('RESOLV: stdout:', stdout);
+            console.log('RESOLV: stderr:', stderr);
+        } catch (error) {
+            console.log('RESOLV: error replace file:', error);
+        }
+
+
+    }
 
 }
 
