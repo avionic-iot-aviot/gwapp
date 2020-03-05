@@ -11,12 +11,13 @@ const delay = require('delay');
     const result = await delay(10000);
     console.log("RESOLV: Sono passati 10 secondi");
 
-    let tmpDirectory = path.join(__dirname, '../src/test.txt');
+    //let tmpDirectory = path.join(__dirname, '../src/test.txt');
     //console.log("dirr", tmpDirectory);
 
-    if (cfg.gateway && cfg.gateway.path_resolv) {
-        tmpDirectory = cfg.gateway.path_resolv;
-    }
+    //if (cfg.gateway && cfg.gateway.path_resolv) {
+    const tmpDirectory = cfg.gateway.path_resolv;
+    //console.log("--> ", tmpDirectory)
+    //}
 
     let datafile = await resolvService.execute(tmpDirectory);
     //console.log("File_letto");
@@ -24,7 +25,7 @@ const delay = require('delay');
     //console.log("Trovo_il_mio_ip");
     await resolvService.changefile(ip, datafile);
     //console.log("Nuovo_file_creato");
-    resolvService.replace_file();
+    resolvService.replace_file(tmpDirectory);
     console.log("RESOLV: File Resolv modificato per la prima volta");
     const result2 = await delay(2000);
 
@@ -35,15 +36,25 @@ const delay = require('delay');
         console.log("RESOLV: News Changes");
         let datafile = await resolvService.execute(tmpDirectory);
         console.log("RESOLV: File_letto");
+
         let ip = await resolvService.getmyip();
         console.log("RESOLV: Trovo_il_mio_ip");
-        await resolvService.changefile(ip, datafile);
-        console.log("RESOLV: Nuovo_file_creato");
-        resolvService.replace_file();
-        console.log("RESOLV: File_Sostituito");
-        const result2 = await delay(10000);
-        console.log("RESOLV: Dormo 10 secondi");
+        const check = await resolvService.changefile(ip, datafile);
 
+        if (check === 1){
+            console.log("RESOLV: Nuovo_file_creato");
+            await resolvService.replace_file(tmpDirectory);
+            console.log("RESOLV: File_Sostituito");
+        }
+        if (check === 0){
+
+        }
+
+
+
+
+        console.log("RESOLV: Dormo 10 secondi");
+        const result2 = await delay(10000);
     })
 
 
