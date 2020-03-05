@@ -166,8 +166,8 @@ export default class ResolvService {
             
             }
 
-            await this.WriteFileF(cfg.gateway.path_resolv,new_resolv);
-            //await this.WriteFileF(cfg.gateway.path_temp_out,new_resolv);
+            //await this.WriteFileF(cfg.gateway.path_resolv,new_resolv);
+            await this.WriteFileF(cfg.gateway.path_temp_out,new_resolv);
 
         }
         
