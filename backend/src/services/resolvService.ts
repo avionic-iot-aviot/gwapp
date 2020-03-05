@@ -184,7 +184,7 @@ export default class ResolvService {
         //Utilities.writeFile(path,content);
         await fs.writeFile(path, content, function (err: any) {
             if (err) console.log(err);
-            else console.log("file saved");
+            else {}//console.log("file saved");
         });
 
         resolve("ok");
@@ -197,8 +197,10 @@ export default class ResolvService {
 
         try {
             const { stdout, stderr } = await exec(` sudo /bin/sh -c 'sudo cat ${cfg.gateway.path_temp_out} > ${cfg.gateway.path_resolv}'`);
-            console.log('RESOLV: stdout:', stdout);
-            console.log('RESOLV: stderr:', stderr);
+            //console.log('RESOLV: stdout:', stdout);
+            //console.log('RESOLV: stderr:', stderr);
+            console.log("RESOLV: File_Sostituito");
+
         } catch (error) {
             console.log('RESOLV: error replace file:', error);
         }
