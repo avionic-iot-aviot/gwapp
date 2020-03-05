@@ -8,8 +8,8 @@ const delay = require('delay');
 
 (async () => {
     console.log("RESOLV: Inizio");
-    const result = await delay(30000);
-    console.log("RESOLV: Sono passati 30 secondi");
+    const result = await delay(10000);
+    console.log("RESOLV: Sono passati 10 secondi");
 
     let tmpDirectory = path.join(__dirname, '../src/test.txt');
     //console.log("dirr", tmpDirectory);
@@ -27,7 +27,7 @@ const delay = require('delay');
     resolvService.replace_file();
     console.log("RESOLV: File Resolv modificato per la prima volta");
     const result2 = await delay(2000);
-    
+
     console.log("RESOLV: Parte il watchfile");
     fs.watchFile(tmpDirectory, async (curr: any, prev: any) => {
         //console.log("Sto ascoltando il file");
