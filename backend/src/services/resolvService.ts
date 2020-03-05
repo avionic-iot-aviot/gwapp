@@ -28,7 +28,7 @@ export default class ResolvService {
             let data_file: Riga[] = new Array();
             let temp: Riga;
             //resolvmon.start();
-            console.log("News Changes");
+            //console.log("News Changes");
 
             const eachLine = PromiseBB.promisify(lineReader.eachLine);
             await eachLine(file, function (line: string) {
