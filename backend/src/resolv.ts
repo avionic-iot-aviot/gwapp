@@ -41,8 +41,8 @@ const delay = require('delay');
         console.log("RESOLV: Nuovo_file_creato");
         resolvService.replace_file();
         console.log("RESOLV: File_Sostituito");
-        const result2 = await delay(2000);
-        console.log("RESOLV: Dormo 2 secondi");
+        const result2 = await delay(10000);
+        console.log("RESOLV: Dormo 10 secondi");
 
     })
 
