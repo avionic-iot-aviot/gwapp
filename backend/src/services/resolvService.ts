@@ -195,7 +195,7 @@ export default class ResolvService {
     async replace_file(){
 
         try {
-            const { stdout, stderr } = await exec(`sudo cat ${cfg.gateway.path_temp_out} > ${cfg.gateway.path_resolv}`);
+            const { stdout, stderr } = await exec(` /bin/bash -c 'sudo cat ${cfg.gateway.path_temp_out} > ${cfg.gateway.path_resolv}'`);
             console.log('RESOLV: stdout:', stdout);
             console.log('RESOLV: stderr:', stderr);
         } catch (error) {
