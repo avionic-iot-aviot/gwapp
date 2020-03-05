@@ -172,11 +172,11 @@ export default class ResolvService {
                 const new_resolv_line = new_resolv.replace(/\r?\n|\r/g,"");
                  if(old_file_line ===  new_resolv_line){
                     console.log("RESOLV: File_Uguale_Nessun_Cambiamento");
-                    return 0;
+                    return "0";
                  }else{
                 //await this.WriteFileF(cfg.gateway.path_resolv,new_resolv);
                     await this.WriteFileF(cfg.gateway.path_temp_out, new_resolv);
-                    return 1;
+                    return "1";
                  }
             }
 

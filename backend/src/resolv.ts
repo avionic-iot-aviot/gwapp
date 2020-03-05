@@ -41,17 +41,14 @@ const delay = require('delay');
         console.log("RESOLV: Trovo_il_mio_ip");
         const check = await resolvService.changefile(ip, datafile);
 
-        if (check === 1){
+        if (check === "1"){
             console.log("RESOLV: Nuovo_file_creato");
             await resolvService.replace_file(tmpDirectory);
             console.log("RESOLV: File_Sostituito");
         }
-        if (check === 0){
+        if (check === "0"){
 
         }
-
-
-
 
         console.log("RESOLV: Dormo 10 secondi");
         const result2 = await delay(10000);
