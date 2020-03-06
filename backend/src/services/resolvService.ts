@@ -14,32 +14,22 @@ const exec = util.promisify(require('child_process').exec);
 export default class ResolvService {
 
     async execute(file: string) {
-
         const data_f = await this.ReadFileResolv(file);
-
         return data_f;
-
     }
 
     async ReadFileResolv(file: string) {
-
         try {
-
             //const promise = new Promise(async(resolve, reject) => {
-
             let data_file: Riga[] = new Array();
             let temp: Riga;
             //resolvmon.start();
             //console.log("RESOLV: News Changes");
-
             const eachLine = PromiseBB.promisify(lineReader.eachLine);
             await eachLine(file, function (line: string) {
                 //await lineReader.eachLine(path.join(__dirname, '../../src/test.txt'), function (line: string) {
                 //console.log(line);
                 let splitted = line.split(" ");
-                // console.log("--> ", splitted.length);
-                // console.log(splitted);
-
                 if (splitted.length === 2) {
                     for (let i in splitted) {
                         //console.log(splitted)
@@ -50,17 +40,13 @@ export default class ResolvService {
                                 //console.log ( splitted[1] )
                                 temp = { type: 1, text: splitted[0], ip: splitted[1] };
                                 data_file.push(temp);
-                            }
-                            else {
+                            } else {
                                 temp = { type: 0, text: line, ip: "0" };
                                 data_file.push(temp);
                             }
                         }
-
-
                     }
-                }
-                else {
+                } else {
                     temp = { type: 0, text: line, ip: "0" };
                     //console.log("TEMP: ",temp);
                     data_file.push(temp);
@@ -84,28 +70,22 @@ export default class ResolvService {
     }
 
     async getmyip() {
-
         const data_ip = await this.generatemyip();
         //console.log("--> ", data_ip);
         return data_ip;
-
     }
 
     async generatemyip() {
-
         let ip_list: [string, string][] = new Array();
         let ip_list_1: any = {};
         let ifaces = os.networkInterfaces();
-
         Object.keys(ifaces).forEach(function (ifname) {
-            var alias = 0;
-
+            let alias = 0;
             ifaces[ifname].forEach(function (iface: any) {
                 if ('IPv4' !== iface.family || iface.internal !== false) {
                     // skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
                     return;
                 }
-
                 if (alias >= 1) {
                     // this single interface has multiple ipv4 addresses
                     //ip_list.push(ifname + ':' + alias, iface.address);
@@ -125,59 +105,44 @@ export default class ResolvService {
     async changefile(list_ip: any, data_file: any) {
 
         try {
-
             let new_1rf_dns: string;
             let new_resolv: string;
-
-            //console.log(list_ip[cfg.gateway.interface_for_resolv]);
+            // verifico se nella lista degli ip c'è quello relativo all'interfaccia N2N
             if (list_ip[cfg.gateway.interface_for_resolv]) {
-
                 let splitted_ip_dns = list_ip[cfg.gateway.interface_for_resolv].split(".");
-
                 for (let i in data_file) {
-
                     if (data_file[i].type === 1) {
-                        let splitted_ip_file = data_file[i].ip.split(".")
-
+                        let splitted_ip_file = data_file[i].ip.split(".");
                         if (splitted_ip_file[0] === splitted_ip_dns[0] && splitted_ip_file[1] === splitted_ip_dns[1] && splitted_ip_file[2] === splitted_ip_dns[2]) {
-
                             new_1rf_dns = (data_file[i].text + " " + data_file[i].ip);
-                            //console.log("eccolo --> ",data_file[i].text, " ", data_file[i].ip);
-                            //console.log(new_1rf_dns);
                         }
                     }
-
                 }
-
                 new_resolv = new_1rf_dns;
-
-                for (let i in data_file) {
-
-                    if (!(data_file[i].text === new_1rf_dns.split(" ")[0] && data_file[i].ip === new_1rf_dns.split(" ")[1])) {
-
-                        if (data_file[i].type === 1) {
-                            new_resolv = new_resolv + "\n" + data_file[i].text + " " + data_file[i].ip;
-                            //console.log(data_file[i].text+" "+data_file[i].ip)
+                if (new_1rf_dns) {
+                    for (let i in data_file) {
+                        if (!(data_file[i].text === new_1rf_dns.split(" ")[0] && data_file[i].ip === new_1rf_dns.split(" ")[1])) {
+                            if (data_file[i].type === 1) {
+                                new_resolv = new_resolv + "\n" + data_file[i].text + " " + data_file[i].ip;
+                            }
+                            if (data_file[i].type === 0) {
+                                new_resolv = new_resolv + "\n" + data_file[i].text;
+                            }
                         }
-                        if (data_file[i].type === 0) {
-                            new_resolv = new_resolv + "\n" + data_file[i].text;
-                        }
-
                     }
-
+                    const old_file = await this.getObjectFromFile(cfg.gateway.path_resolv);
+                    const old_file_line = old_file.replace(/\r?\n|\r/g, "");
+                    const new_resolv_line = new_resolv.replace(/\r?\n|\r/g, "");
+                    if (old_file_line === new_resolv_line) {
+                        console.log("RESOLV: File_Uguale_Nessun_Cambiamento");
+                        return "0";
+                    } else {
+                        console.log("Sono diversi aggiorno");
+                        await this.WriteFileF(cfg.gateway.path_resolv, new_resolv);
+                        // await this.WriteFileF(cfg.gateway.path_temp_out, new_resolv);
+                        return "1";
+                    }
                 }
-
-                const old_file = await this.getObjectFromFile(cfg.gateway.path_resolv);
-                const old_file_line = old_file.replace(/\r?\n|\r/g,"");
-                const new_resolv_line = new_resolv.replace(/\r?\n|\r/g,"");
-                 if(old_file_line ===  new_resolv_line){
-                    console.log("RESOLV: File_Uguale_Nessun_Cambiamento");
-                    return "0";
-                 }else{
-                //await this.WriteFileF(cfg.gateway.path_resolv,new_resolv);
-                    await this.WriteFileF(cfg.gateway.path_temp_out, new_resolv);
-                    return "1";
-                 }
             }
 
         } catch (error) {
