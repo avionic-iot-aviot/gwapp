@@ -175,7 +175,7 @@ export default class ResolvService {
 // 
         try {
             // const { stdout, stderr } = await exec(`sudo echo ${content} > ${path}`);
-            const { stdout, stderr } = await exec(`sudo cp ${path_from} > ${path_to}`);
+            const { stdout, stderr } = await exec(`sudo cp ${path_from} ${path_to}`);
 
             console.log('stdout:', stdout);
             console.log('stderr:', stderr);
