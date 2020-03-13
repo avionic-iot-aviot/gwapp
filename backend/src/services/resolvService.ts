@@ -138,7 +138,8 @@ export default class ResolvService {
                         return "0";
                     } else {
                         console.log("Sono diversi aggiorno");
-                        await this.WriteFileF(cfg.gateway.path_resolv, new_resolv);
+                        // await this.WriteFileF(cfg.gateway.path_resolv, new_resolv);
+                        await this.writeResolve(cfg.gateway.path_resolv, new_resolv);
                         // await this.WriteFileF(cfg.gateway.path_temp_out, new_resolv);
                         return "1";
                     }
@@ -165,6 +166,16 @@ export default class ResolvService {
             resolve("ok");
         });
         return promise;
+    }
+
+    async writeResolve(path: string, content: string) {
+        try {
+            const { stdout, stderr } = await exec(`sudo echo ${content} > ${path}`);
+            console.log('stdout:', stdout);
+            console.log('stderr:', stderr);
+        } catch (error) {
+            console.log('error:', error);
+        }
     }
 
 
