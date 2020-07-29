@@ -15,7 +15,7 @@ sudo npm install npm@latest -g
 node -v
 sudo npm install -g typescript
 sudo apt-get -y install git
-git clone https://github.com/ntop/n2n.git
+git clone --single-branch --branch 2.6-stable https://github.com/ntop/n2n.git
 mv n2n ~/n2n
 cd ~/n2n
 ./autogen.sh
