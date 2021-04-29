@@ -8,7 +8,6 @@ pm2 stop gatewayapp
 sudo rm -rf ~/gwapp
 fi
 git clone -b resolv --single-branch  git://github.com/avionic-iot-aviot/gwapp.git
-#git clone https://github.com/avionic-iot-aviot/gwapp.git
 cd ~/gwapp/backend;
 npm install
 npm run be:build
