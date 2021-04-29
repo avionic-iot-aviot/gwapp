@@ -59,3 +59,7 @@ echo "supernode_port=" >> drone.cfg
 # Make reboot.sh runnable and then set a crontab operation at reboot time
 chmod 755 /home/pi/reboot.sh
 echo "$(echo '@reboot /home/pi/reboot.sh' ; crontab -l)" | crontab -
+
+# Install python dependencies
+yes | pip3 install pyaml
+yes | pip3 install rospkg
