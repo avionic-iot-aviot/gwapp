@@ -35,7 +35,7 @@ make
 sudo make install
 
 # NVM, NPM/NODE set on .bashrc
-echo 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"' >> /home/pi/.bashrc
+echo 'export NVM_DIR="${HOME}/.nvm"' >> /home/pi/.bashrc
 echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> /home/pi/.bashrc
 
 # Global npm packages set on .bashrc. It depends on the running node --version and it reloads when opening a shell
