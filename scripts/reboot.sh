@@ -30,4 +30,3 @@ sudo brctl addif dhcpbr edge0
 sudo brctl addif dhcpbr eth0
 sudo ebtables -t nat -A POSTROUTING -o edge0 -j snat --to-src $MAC_ADDRESS --snat-arp --snat-target ACCEPT
 sudo /etc/init.d/dhcpcd start
-sudo dhclient dhcpbr
