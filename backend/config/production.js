@@ -10,7 +10,7 @@ module.exports = {
   },
   gateway: {
     interface: "dhcpbr",
-    interface_for_resolv: "edge0",
+    interface_for_resolv: "dhcpbr",
     path_resolv: "/etc/resolv.conf",
   }
 };
