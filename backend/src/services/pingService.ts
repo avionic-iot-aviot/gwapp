@@ -44,7 +44,7 @@ export default class PingService {
             await hosts.forEach(async (host: string) => {
                 // const promise = new Promise(async (resolve, reject) => {
                 let promise = ping.promise.probe(host);
-                console.log("Promise...");
+                console.log("pingIP Promise...");
                 promises.push(promise);
                 // resolve(res);
                 // });
@@ -104,8 +104,8 @@ export default class PingService {
             if (mac_gw) {
                 const postrouting_rule = `sudo ebtables -t nat -A POSTROUTING -o edge0 -j snat --to-src ${mac_gw.replace(/\r?\n|\r/, "")} --snat-arp --snat-target ACCEPT`;
                 const { stdout, stderr } = await exec(postrouting_rule);
-                console.log('stdout:', stdout);
-                console.log('stderr:', stderr);
+                console.log('addExitRuleEbTables stdout:', stdout);
+                console.log('addExitRuleEbTables stderr:', stderr);
             }
         } catch (error) {
             console.log('error:', error);
@@ -115,23 +115,23 @@ export default class PingService {
     async addRuleEbTables(ip: string, mac_address: string) {
         try {
             const { stdout, stderr } = await exec(`sudo ebtables -t nat -A PREROUTING -p ARP -i edge0 --arp-ip-dst ${ip} -j dnat --to-dst ${mac_address} --dnat-target ACCEPT`);
-            console.log('stdout:', stdout);
-            console.log('stderr:', stderr);
+            console.log('addRuleEbTables stdout:', stdout);
+            console.log('addRuleEbTablesstderr:', stderr);
             const { stdout1, stderr1 } = await exec(`sudo ebtables -t nat -A PREROUTING -p IPv4 -i edge0 --ip-dst ${ip} -j dnat --to-dst ${mac_address} --dnat-target ACCEPT`);
-            console.log('stdout1:', stdout1);
-            console.log('stderr1:', stderr1);
+            console.log('addRuleEbTables stdout1:', stdout1);
+            console.log('addRuleEbTables stderr1:', stderr1);
         } catch (error) {
-            console.log('error:', error);
+            console.log('addRuleEbTables error:', error);
         }
     }
     // L'ebtables viene svuotata al fine di evitare che ci siano regole in più
     async flushEbTables() {
         try {
             const { stdout, stderr } = await exec(`sudo ebtables -t nat -F`);
-            console.log('stdout:', stdout);
-            console.log('stderr:', stderr);
+            console.log('flushEbTables stdout:', stdout);
+            console.log('flushEbTables stderr:', stderr);
         } catch (error) {
-            console.log('error:', error);
+            console.log('flushEbTables error:', error);
         }
     }
 }
