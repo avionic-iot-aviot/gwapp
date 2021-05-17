@@ -19,6 +19,7 @@ module.exports = {
     path_mac: "/sys/class/net/dhcpbr/address",
     path_resolv: "/etc/resolv.conf",
     interface_for_resolv: "dhcpbr",
-    path_temp_out: path.join(__dirname, "../file_temp/test_out.txt")
+    path_temp_out: path.join(__dirname, "../file_temp/test_out.txt"),
+    dhcp_server_ip_on_n2n: "10.11.0.1"
   }
 };
