@@ -7,6 +7,7 @@ const ping = require('ping');
 // let tbl: any = { ipaddrs: {}, ifnames: {} };
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
+import * as _ from 'lodash';
 
 export default class PingService {
 
@@ -18,16 +19,16 @@ export default class PingService {
                 await this.addExitRuleEbTables();
                 await this.pingIP(hosts);
                 const arpData: any = await this.getElementsFromArpTable();
-                if (arpData) {
-                    if (arpData.mac_addresses && Object.keys(arpData.mac_addresses).length > 0) {
-                        await Object.keys(arpData.mac_addresses).forEach(async (key: string) => {
-                            const ipaddrs: string[] = arpData.mac_addresses[key];
-                            await ipaddrs.forEach(async (ip: string) => {
-                                if (hosts.includes(ip)) {
-                                    await this.addRuleEbTables(ip, key);
-                                }
-                            });
-                        });
+                console.log("arpData:",arpData);
+                if (arpData && arpData.mac_addresses && Object.keys(arpData.mac_addresses).length > 0) {
+                    for(let mac_address in arpData.mac_addresses) {
+                        const ips: string[] = arpData.mac_addresses[mac_address];
+                        for(let ip of ips) {
+                            if(_.indexOf(hosts, ip) >= 0) {
+                                console.log("EBTABLES: Adding ebtable rule for the following ip and mac_address:", ip, mac_address);
+                                await this.addRuleEbTables(ip, mac_address);
+                            }
+                        }
                     }
                 }
             }
