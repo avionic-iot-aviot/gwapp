@@ -22,7 +22,7 @@ ROS_DEVICE_STREAMER_FOLDER="ros-device-streamer"
 
 if [ ! -d ~/ros_catkin_ws/src/$ROS_DEVICE_STREAMER_FOLDER ] ; then
     echo 'ROS_DEVICE_STREAMER_FOLDER: Cloning the repo'
-    git clone https://github.com/avionic-iot-aviot/ros-device-streamer.git ~/ros_catkin_ws/src/ros-device-streamer
+    git clone https://github.com/avionic-iot-aviot/ros-device-streamer.git ~/ros_catkin_ws/src/$ROS_DEVICE_STREAMER_FOLDER
 else
     echo 'ROS_DEVICE_STREAMER_FOLDER: Pulling from the repo'
     cd ~/ros_catkin_ws/src/$ROS_DEVICE_STREAMER_FOLDER
