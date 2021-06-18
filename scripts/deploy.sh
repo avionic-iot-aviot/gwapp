@@ -4,7 +4,7 @@ if [ ! -d $PROJECT_FOLDER ] ; then
     echo 'GWAPP: Folder not found'
     git clone -b master --single-branch  git://github.com/avionic-iot-aviot/gwapp.git
 else
-    echo 'GWAPP: Folder found. Deleting the folder and the pm2 instance of the gatewayapp.'
+    echo 'GWAPP: Folder found. Deleting the pm2 instance of the gatewayapp.'
     pm2 stop gatewayapp
     cd ~/$PROJECT_FOLDER/backend;
     git pull
