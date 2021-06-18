@@ -17,5 +17,5 @@ NODE_ENV=staging pm2 start dist/main.js --name "gatewayapp" && cd ~/ && pm2 star
 tail -n 1 pm2_startup_output > pm2_startup.sh && chmod u+rwx pm2_startup.sh && ./pm2_startup.sh && pm2 save
 cd ~
 
-cp ~/$GWAPP_FOLDER/scripts/*.sh .
+cp ~/$PROJECT_FOLDER/scripts/*.sh .
 chmod 755 /home/pi/reboot.sh
