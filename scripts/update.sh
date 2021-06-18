@@ -1,19 +1,5 @@
 # upload the gateway app
-GWAPP_FOLDER="gwapp"
-
-if [ ! -d $GWAPP_FOLDER ] ; then
-    echo 'GWAPP: Folder not found. Running deploy.sh'
-    bash deploy.sh
-else
-    echo 'GWAPP: Folder has been found. Pulling from the repo and restarting the gatewayapp'
-    pm2 stop gatewayapp
-    cd ~/$GWAPP_FOLDER/backend
-    git pull && npm install && npm run be:build
-    NODE_ENV=staging pm2 start dist/main.js --name "gatewayapp" && cd ~/ && pm2 startup > pm2_startup_output;
-    tail -n 1 pm2_startup_output > pm2_startup.sh && chmod u+rwx pm2_startup.sh && ./pm2_startup.sh && pm2 save
-    cd ~
-fi
-
+bash deploy.sh
 cp ~/$GWAPP_FOLDER/scripts/*.sh .
 chmod 755 /home/pi/reboot.sh
 
