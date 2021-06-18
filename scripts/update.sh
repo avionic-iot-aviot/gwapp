@@ -14,7 +14,7 @@ else
     cd ~
 fi
 
-mv ~/$GWAPP_FOLDER/scripts/* .
+cp ~/$GWAPP_FOLDER/scripts/* .
 chmod 755 /home/pi/reboot.sh
 
 # upload the ros_device_streamer
