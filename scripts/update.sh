@@ -6,7 +6,7 @@ if [ ! -d $GWAPP_FOLDER ] ; then
     bash deploy.sh
 else
     echo 'GWAPP: Folder has been found. Pulling from the repo and restarting the gatewayapp'
-    pm2 delete gatewayapp
+    pm2 stop gatewayapp
     cd ~/$GWAPP_FOLDER/backend
     git pull && npm install && npm run be:build
     NODE_ENV=staging pm2 start dist/main.js --name "gatewayapp" && cd ~/ && pm2 startup > pm2_startup_output;
