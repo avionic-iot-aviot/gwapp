@@ -26,7 +26,7 @@ npm install typescript -g
 npm install pm2 -g
 
 # Install n2n
-git clone --single-branch --branch 2.6-stable https://github.com/ntop/n2n.git
+git clone --single-branch --branch 2.8-stable https://github.com/ntop/n2n.git
 mv n2n ~/n2n
 cd ~/n2n
 ./autogen.sh
@@ -51,14 +51,14 @@ cd ~
 # create and configure the drone.cfg file needed for reboot.sh
 # PS. IMPORTANT: You need to setup this file before moving on the reboot.sh script
 touch drone.cfg
-echo "community_aviot=" >> drone.cfg
-echo "aviotkey=" >> drone.cfg
-echo "supernode_ip=" >> drone.cfg
-echo "supernode_port=" >> drone.cfg
+echo "community_aviot=xxxx" >> drone.cfg
+echo "aviotkey=xxxx" >> drone.cfg
+echo "supernode_ip='x.x.x.x'" >> drone.cfg
+echo "supernode_port=xxxx" >> drone.cfg
 
 # Make reboot.sh runnable and then set a crontab operation at reboot time
-chmod 755 ~/reboot.sh
-echo "$(echo '@reboot ~/reboot.sh' ; crontab -l)" | crontab -
+#chmod 755 ~/reboot.sh
+#echo "$(echo '@reboot ~/reboot.sh' ; crontab -l)" | crontab -
 
 # Install python dependencies
 yes | pip3 install pyaml

@@ -16,13 +16,13 @@ file_content=$(cat ~/mac_edge0)
 if [ ${#file_content} -eq 0 ]
 then
 	echo "Updating file ~/mac_edge0"
-	sudo edge -r -a dhcp:0.0.0.0 -s 255.255.255.0 -c $community_aviot -k $aviotkey -l 18.188.136.98:7654
+	sudo edge -r -a dhcp:0.0.0.0 -s 255.255.255.0 -c $community_aviot -k $aviotkey -l $supernode_ip:$supernode_port
 	export MAC_ADDRESS="$(cat /sys/class/net/edge0/address)"
 	sudo echo $MAC_ADDRESS  > ~/mac_edge0
 else
 	echo "Reading file ~/mac_edge0"
 	export MAC_ADDRESS="$(cat ~/mac_edge0)"
-	sudo edge -r -a dhcp:0.0.0.0 -m $MAC_ADDRESS  -s 255.255.255.0 -c $community_aviot -k $aviotkey -l 18.188.136.98:7654
+	sudo edge -r -a dhcp:0.0.0.0 -m $MAC_ADDRESS  -s 255.255.255.0 -c $community_aviot -k $aviotkey -l $supernode_ip:$supernode_port
 fi
 
 sudo ifconfig dhcpbr hw ether $MAC_ADDRESS up
