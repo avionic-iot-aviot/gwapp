@@ -7,7 +7,7 @@ echo 'Folder found. Deleting the folder and the pm2 instance of the gatewayapp.'
 pm2 stop gatewayapp
 sudo rm -rf ~/$PROJECT_FOLDER
 fi
-git clone -b resolv --single-branch  git://github.com/avionic-iot-aviot/gwapp.git
+git clone -b master --single-branch  git://github.com/avionic-iot-aviot/gwapp.git
 cd ~/$PROJECT_FOLDER/backend;
 npm install
 npm run be:build
