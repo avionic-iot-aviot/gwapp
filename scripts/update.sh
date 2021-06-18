@@ -1,7 +1,5 @@
 # upload the gateway app
 bash deploy.sh
-cp ~/$GWAPP_FOLDER/scripts/*.sh .
-chmod 755 /home/pi/reboot.sh
 
 # upload the ros_device_streamer
 ROS_DEVICE_STREAMER_FOLDER="ros_catkin_ws/src/ros-device-streamer"
