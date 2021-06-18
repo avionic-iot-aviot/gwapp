@@ -14,18 +14,18 @@ else
     cd ~
 fi
 
-mv ~/gwapp/scripts/* .
+mv ~/$GWAPP_FOLDER/scripts/* .
 chmod 755 /home/pi/reboot.sh
 
 # upload the ros_device_streamer
-ROS_DEVICE_STREAMER_FOLDER="ros-device-streamer"
+ROS_DEVICE_STREAMER_FOLDER="ros_catkin_ws/src/ros-device-streamer"
 
-if [ ! -d ~/ros_catkin_ws/src/$ROS_DEVICE_STREAMER_FOLDER ] ; then
+if [ ! -d ~/$ROS_DEVICE_STREAMER_FOLDER ] ; then
     echo 'ROS_DEVICE_STREAMER_FOLDER: Cloning the repo'
-    git clone https://github.com/avionic-iot-aviot/ros-device-streamer.git ~/ros_catkin_ws/src/$ROS_DEVICE_STREAMER_FOLDER
+    git clone https://github.com/avionic-iot-aviot/ros-device-streamer.git ~/$ROS_DEVICE_STREAMER_FOLDER
 else
     echo 'ROS_DEVICE_STREAMER_FOLDER: Pulling from the repo'
-    cd ~/ros_catkin_ws/src/$ROS_DEVICE_STREAMER_FOLDER
+    cd ~/$ROS_DEVICE_STREAMER_FOLDER
     git pull
     cd ~
 fi
