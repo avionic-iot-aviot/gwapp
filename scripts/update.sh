@@ -1,5 +1,6 @@
 # upload the gateway app
 bash deploy.sh
+env > /home/pi/environment
 
 # upload the ros_device_streamer
 ROS_DEVICE_STREAMER_FOLDER="ros_catkin_ws/src/ros-device-streamer"
