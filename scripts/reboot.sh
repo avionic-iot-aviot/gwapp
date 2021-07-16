@@ -33,7 +33,7 @@ sudo /etc/init.d/dhcpcd start
 
 
 #run ros device streamer
-sleep 20
+sleep 60
 echo "Start ros_stream.py"
 cd /home/pi/ros_catkin_ws/src/ros-device-streamer/src
 python3 ros_stream.py -c configs.json &
