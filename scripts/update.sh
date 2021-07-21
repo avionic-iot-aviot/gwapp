@@ -24,4 +24,17 @@ else
     cd ~
 fi
 
+# upload the audio-receiver
+AUDIO_RECEIVER_FOLDER="audio-receiver"
+
+if [ ! -d ~/$AUDIO_RECEIVER_FOLDER ] ; then
+    echo 'AUDIO_RECEIVER_FOLDER: Cloning the repo'
+    git clone https://github.com/avionic-iot-aviot/audio-receiver.git ~/$AUDIO_RECEIVER_FOLDER
+else
+    echo 'AUDIO_RECEIVER_FOLDER: Pulling from the repo'
+    cd ~/$AUDIO_RECEIVER_FOLDER
+    git pull
+    cd ~
+fi
+
 echo "Update completed!"

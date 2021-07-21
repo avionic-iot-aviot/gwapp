@@ -32,8 +32,13 @@ sudo ebtables -t nat -A POSTROUTING -o edge0 -j snat --to-src $MAC_ADDRESS --sna
 sudo /etc/init.d/dhcpcd start
 
 
-#run ros device streamer
+#run audio-receiver
 sleep 60
+echo "Start audio-receiver/main.py"
+cd /home/pi/audio-receiver
+screen -d -m python3 main.py
+
+#run ros device streamer
 echo "Start ros_stream.py"
 cd /home/pi/ros_catkin_ws/src/ros-device-streamer/src
-python3 ros_stream.py -c configs.json &
+screen -d -m python3 ros_stream.py -c configs.json
