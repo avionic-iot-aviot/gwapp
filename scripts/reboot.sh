@@ -36,9 +36,9 @@ sudo /etc/init.d/dhcpcd start
 sleep 60
 echo "Start audio-receiver/main.py"
 cd /home/pi/audio-receiver
-screen -d -m python3 main.py
+screen -S 'audio-receiver' -d -m python3 main.py
 
 #run ros device streamer
 echo "Start ros_stream.py"
 cd /home/pi/ros_catkin_ws/src/ros-device-streamer/src
-screen -d -m python3 ros_stream.py -c configs.json
+screen -S 'ros-device-streamer' -d -m python3 ros_stream.py -c configs.json
