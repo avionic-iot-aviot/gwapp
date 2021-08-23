@@ -38,7 +38,6 @@ else
 fi
 
 # update crontab jobs
-JOBS=$'@reboot /home/pi/reboot.sh >> /home/pi/reboot-sh.log 2>&1\n* * * * * bash /home/pi/delete_logs.sh'
-echo "$(crontab -r; echo "$JOBS" ; crontab -l)" | crontab -
+bash ~/add_crontab_jobs.sh
 
 echo "Update completed!"
