@@ -10,6 +10,7 @@ sudo apt -y install unzip
 sudo apt -y install ebtables
 sudo apt -y install git
 sudo apt -y install screen
+sudo apt -y install gstreamer1.0-tools
 
 # Install nvm v0.37.2 from their repo
 git clone https://github.com/nvm-sh/nvm.git .nvm
