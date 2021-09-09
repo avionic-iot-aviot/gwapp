@@ -37,6 +37,19 @@ else
     cd ~
 fi
 
+# upload the mlvpn smart bond
+SMART_BONDING_FOLDER="smart-bonding"
+
+if [ ! -d ~/$SMART_BONDING_FOLDER ] ; then
+    echo 'SMART_BONDING_FOLDER: Cloning the repo'
+    git clone https://github.com/avionic-iot-aviot/audio-receiver.git ~/$SMART_BONDING_FOLDER
+else
+    echo 'SMART_BONDING_FOLDER: Pulling from the repo'
+    cd ~/$SMART_BONDING_FOLDER
+    git pull
+    cd ~
+fi
+
 # update crontab jobs
 bash ~/add_crontab_jobs.sh
 
