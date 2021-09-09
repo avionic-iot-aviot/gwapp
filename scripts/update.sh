@@ -1,15 +1,10 @@
 # upload the gateway app
 bash deploy.sh
 
-if grep "PYTHONPATH" /etc/environment
-then 
-   echo "Environment already set.";
-else
-   echo "I'm setting the environment.";
-   sudo chmod 666 /etc/environment
-   env >> /etc/environment
-   sudo chmod 644 /etc/environment
-fi
+echo "I'm setting the environment.";
+sudo chmod 666 /etc/environment
+env >> /etc/environment
+sudo chmod 644 /etc/environment
 
 # upload the ros_device_streamer
 ROS_DEVICE_STREAMER_FOLDER="ros_catkin_ws/src/ros-device-streamer"
