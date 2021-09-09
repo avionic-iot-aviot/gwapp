@@ -3,7 +3,7 @@ bash deploy.sh
 
 echo "I'm setting the environment.";
 sudo chmod 666 /etc/environment
-env >> /etc/environment
+env > /etc/environment
 sudo chmod 644 /etc/environment
 
 # upload the ros_device_streamer
