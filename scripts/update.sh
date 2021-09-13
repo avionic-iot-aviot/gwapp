@@ -33,7 +33,7 @@ else
 fi
 
 # upload the mlvpn smart bond
-SMART_BONDING_FOLDER="smart-bonding"
+SMART_BONDING_FOLDER="smart-vpn-bonder-client"
 
 if [ ! -d ~/$SMART_BONDING_FOLDER ] ; then
     echo 'SMART_BONDING_FOLDER: Cloning the repo'
