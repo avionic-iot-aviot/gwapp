@@ -31,9 +31,11 @@ sudo brctl addif dhcpbr eth0
 sudo ebtables -t nat -A POSTROUTING -o edge0 -j snat --to-src $MAC_ADDRESS --snat-arp --snat-target ACCEPT
 sudo /etc/init.d/dhcpcd start
 
+sleep 60
+export ROS_IP="$(/usr/sbin/ifconfig dhcpbr | grep 'inet ' | awk '{ print $2}')"
+sudo sed -i "s/ROS_IP.*/ROS_IP=${ROS_IP}/" /etc/environment
 
 #run audio-receiver
-sleep 60
 echo "Start audio-receiver/main.py"
 cd /home/pi/audio-receiver
 screen -S 'audio-receiver' -d -m python3 main.py
