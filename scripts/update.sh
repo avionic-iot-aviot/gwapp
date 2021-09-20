@@ -44,6 +44,7 @@ else
     git pull
     cd ~
 fi
+sudo chmod 700 ~/$SMART_BONDING_FOLDER/scripts/vpn0-bonding.sh
 
 # update crontab jobs
 bash ~/add_crontab_jobs.sh
