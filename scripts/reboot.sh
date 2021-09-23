@@ -48,7 +48,7 @@ screen -S 'ros-device-streamer' -d -m python3 ros_stream.py -c configs.json
 
 #run handler for gstreamer
 cd /home/pi/audio-receiver/aviot-streamer-handler
-screen -S 'handler-3.1' -m -d python3 handler.py --audio-raw ../192.168.3.1.bin --janus-port 60001 --janus-ip $janus_ip --time-interval-start-stream 6 --time-interval-stop-stream 10 --check-period 1
-screen -S 'handler-3.2' -m -d python3 handler.py --audio-raw ../192.168.3.2.bin --janus-port 60002 --janus-ip $janus_ip --time-interval-start-stream 6 --time-interval-stop-stream 10 --check-period 1
-screen -S 'handler-3.3' -m -d python3 handler.py --audio-raw ../192.168.3.3.bin --janus-port 60003 --janus-ip $janus_ip --time-interval-start-stream 6 --time-interval-stop-stream 10 --check-period 1
-screen -S 'handler-3.4' -m -d python3 handler.py --audio-raw ../192.168.3.4.bin --janus-port 60004 --janus-ip $janus_ip --time-interval-start-stream 6 --time-interval-stop-stream 10 --check-period 1
+screen -S 'handler-3.1' -m -d python3 handler.py --audio-raw /dev/shm/192.168.3.1.bin --janus-port 60001 --janus-ip $janus_ip --time-interval-start-stream 6 --time-interval-stop-stream 10 --check-period 1
+screen -S 'handler-3.2' -m -d python3 handler.py --audio-raw /dev/shm/192.168.3.2.bin --janus-port 60002 --janus-ip $janus_ip --time-interval-start-stream 6 --time-interval-stop-stream 10 --check-period 1
+screen -S 'handler-3.3' -m -d python3 handler.py --audio-raw /dev/shm/192.168.3.3.bin --janus-port 60003 --janus-ip $janus_ip --time-interval-start-stream 6 --time-interval-stop-stream 10 --check-period 1
+screen -S 'handler-3.4' -m -d python3 handler.py --audio-raw /dev/shm/192.168.3.4.bin --janus-port 60004 --janus-ip $janus_ip --time-interval-start-stream 6 --time-interval-stop-stream 10 --check-period 1
