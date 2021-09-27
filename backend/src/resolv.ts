@@ -30,7 +30,7 @@ const delay = require('delay');
         console.log("RESOLV: File_letto");
 
         let ip = await resolvService.getmyip();
-        console.log("RESOLV: Trovo_il_mio_ip");
+        console.log("RESOLV: Trovo_il_mio_ip", ip);
         const check = await resolvService.changefile(ip, datafile);
         if (check) {
             if (check === "1") {
