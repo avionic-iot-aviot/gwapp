@@ -39,10 +39,10 @@ do
 done
 sudo sed -i "s/ROS_IP.*/ROS_IP=${ROS_IP}/" /etc/environment
 
-#run audio-receiver
-echo "Start audio-receiver/main.py"
-cd /home/pi/audio-receiver
-screen -S 'audio-receiver' -d -m python3 main.py
+# #run audio-receiver
+# echo "Start audio-receiver/main.py"
+# cd /home/pi/audio-receiver
+# screen -S 'audio-receiver' -d -m python3 main.py
 
 #run ros device streamer
 echo "Start ros_stream.py"
